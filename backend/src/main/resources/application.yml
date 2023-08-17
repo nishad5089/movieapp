@@ -1,0 +1,22 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: movieapp
+  datasource:
+    url: jdbc:postgresql://localhost:5433/movieapp
+    username: dev@movieapp
+    password: password@movieapp
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        hbm2ddl.auto: update
+    show-sql: true
+
+springdoc:
+  api-docs:
+    path: /docs
