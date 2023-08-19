@@ -6,6 +6,10 @@ import lombok.experimental.UtilityClass;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+/**
+ * @author Abdur Rahim Nishad
+ * @since 1.0.0
+ */
 @UtilityClass
 public final class ResponseUtil {
 	

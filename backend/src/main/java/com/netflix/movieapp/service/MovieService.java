@@ -1,15 +1,15 @@
 package com.netflix.movieapp.service;
 
 import com.netflix.movieapp.common.domain.response.PagedResponse;
-import com.netflix.movieapp.domain.entity.Genre;
-import com.netflix.movieapp.exceptions.GenreNotFoundException;
-import com.netflix.movieapp.exceptions.MovieNotFoundException;
 import com.netflix.movieapp.common.utils.PageUtil;
+import com.netflix.movieapp.domain.entity.Genre;
 import com.netflix.movieapp.domain.entity.Movie;
 import com.netflix.movieapp.domain.request.movie.MovieCreateRequest;
 import com.netflix.movieapp.domain.request.movie.MovieFetchRequest;
-import com.netflix.movieapp.domain.request.movie.UpdateMovieRequest;
+import com.netflix.movieapp.domain.request.movie.MovieUpdateRequest;
 import com.netflix.movieapp.domain.response.MovieResponse;
+import com.netflix.movieapp.exceptions.GenreNotFoundException;
+import com.netflix.movieapp.exceptions.MovieNotFoundException;
 import com.netflix.movieapp.exceptions.MovieUpdateFailedException;
 import com.netflix.movieapp.mapper.MovieMapper;
 import com.netflix.movieapp.repository.GenreRepository;
@@ -20,11 +20,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.netflix.movieapp.constant.ResponseMessages.*;
+import static com.netflix.movieapp.common.enums.ResponseMessages.*;
 
 /**
  * @author Abdur Rahim Nishad
@@ -59,10 +58,12 @@ public class MovieService extends BaseService {
 
     public PagedResponse<MovieResponse> getAll(MovieFetchRequest fetchRequest) {
 
-        Page<Movie> todos = repository.findAll(MovieSpecification.criteriaFilter(fetchRequest.getFilters()), PageUtil.getPageable(fetchRequest.getPagination()));
-        return PageUtil.paginate(todos, mapper::toResponse);
-    }
+        Page<MovieResponse> pagedMovies = repository.findAll(MovieSpecification.criteriaFilter(fetchRequest.getFilters()),
+                PageUtil.getPageable(fetchRequest.getPagination()))
+                .map(mapper::toResponse);
 
+        return PageUtil.paginate(pagedMovies);
+    }
 
     private boolean checkGenresNotExist(Set<String> genreNames) {
         return genreNames.stream()
@@ -79,18 +80,18 @@ public class MovieService extends BaseService {
 
 
     @Transactional
-    public MovieResponse update(UpdateMovieRequest updateMovieRequest) {
-        Movie movie = repository.findById(updateMovieRequest.getId())
+    public MovieResponse update(MovieUpdateRequest movieUpdateRequest) {
+        Movie movie = repository.findById(movieUpdateRequest.getId())
                 .orElseThrow(() -> new MovieNotFoundException(getMessage(MOVIE_NOT_FOUND)));
 
-        if (checkGenresNotExist(updateMovieRequest.getGenres())) {
+        if (checkGenresNotExist(movieUpdateRequest.getGenres())) {
             throw new GenreNotFoundException(getMessage(GENRE_NOT_FOUND));
         }
 
         try {
-            mapper.updateEntity(updateMovieRequest, movie);
+            mapper.updateEntity(movieUpdateRequest, movie);
 
-            Set<Genre> updatedGenres = updateGenres(updateMovieRequest.getGenres(), movie.getGenres());
+            Set<Genre> updatedGenres = updateGenres(movieUpdateRequest.getGenres(), movie.getGenres());
             movie.setGenres(updatedGenres);
 
             Movie updatedMovie = repository.save(movie);
@@ -111,14 +112,12 @@ public class MovieService extends BaseService {
 
             if (!containsGenre) {
                 Genre newGenre = genreRepository.findByName(newGenreName)
-                                                .orElseThrow(() -> new GenreNotFoundException(getMessage(GENRE_NOT_FOUND)));
+                        .orElseThrow(() -> new GenreNotFoundException(getMessage(GENRE_NOT_FOUND)));
                 updatedGenres.add(newGenre);
             }
         }
 
         return updatedGenres;
     }
-
-
 
 }

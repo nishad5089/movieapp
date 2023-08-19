@@ -1,6 +1,6 @@
 package com.netflix.movieapp.service;
 
-import com.netflix.movieapp.constant.ResponseMessages;
+import com.netflix.movieapp.common.enums.ResponseMessages;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

@@ -5,7 +5,6 @@ import com.netflix.movieapp.common.domain.response.ApiResponse;
 import com.netflix.movieapp.common.domain.response.ErrorBaseResponse;
 import com.netflix.movieapp.common.exceptions.RESTException;
 import com.netflix.movieapp.common.utils.ResponseUtil;
-import com.netflix.movieapp.constant.ResponseMessages;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,7 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * @author Abdur Rahim Nishad
+ * @since 1.0.0
+ */
 @RestControllerAdvice
 public class RESTExceptionHandler extends ResponseEntityExceptionHandler {
 	

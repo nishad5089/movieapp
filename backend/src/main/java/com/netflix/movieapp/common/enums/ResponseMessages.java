@@ -1,8 +1,12 @@
-package com.netflix.movieapp.constant;
+package com.netflix.movieapp.common.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * @author Abdur Rahim Nishad
+ * @since 1.0.0
+ */
 @AllArgsConstructor
 @Getter
 public enum ResponseMessages {
@@ -20,8 +24,8 @@ public enum ResponseMessages {
 	MOVIE_DELETE_FAILED("movie.delete.failed"),
 	MOVIE_UPDATE_FAILED("movie.update.failed"),
 
-	GENRE_NOT_FOUND("genre.not.found");
-
+	GENRE_NOT_FOUND("genre.not.found"),
+	GENRE_RETRIEVED_SUCCESSFULLY("genre.retrieved.successfully");
 
 	private final String message;
 }

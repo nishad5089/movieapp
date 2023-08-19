@@ -21,6 +21,7 @@ import java.io.Serializable;
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class BaseResponse implements Serializable {
+
     private HttpStatus status;
     private String message;
 

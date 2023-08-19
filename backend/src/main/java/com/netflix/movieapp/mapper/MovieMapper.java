@@ -3,7 +3,7 @@ package com.netflix.movieapp.mapper;
 import com.netflix.movieapp.domain.entity.Genre;
 import com.netflix.movieapp.domain.entity.Movie;
 import com.netflix.movieapp.domain.request.movie.MovieCreateRequest;
-import com.netflix.movieapp.domain.request.movie.UpdateMovieRequest;
+import com.netflix.movieapp.domain.request.movie.MovieUpdateRequest;
 import com.netflix.movieapp.domain.response.MovieResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -38,6 +38,6 @@ public interface MovieMapper {
                 .collect(Collectors.toSet());
     }
 
-    void updateEntity(UpdateMovieRequest request, @MappingTarget Movie entity);
+    void updateEntity(MovieUpdateRequest request, @MappingTarget Movie entity);
 
 }

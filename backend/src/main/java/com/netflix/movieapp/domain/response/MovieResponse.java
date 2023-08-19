@@ -1,10 +1,7 @@
 package com.netflix.movieapp.domain.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -14,7 +11,7 @@ import java.util.Set;
  * @author Abdur Rahim Nishad
  * @since 1.0.0
  */
-@SuperBuilder
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -28,7 +25,7 @@ public class MovieResponse {
     private String description;
 
     @JsonProperty("release_year")
-    private String releaseYear;
+    private Integer releaseYear;
 
     private Set<String> genres;
 }

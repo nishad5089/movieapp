@@ -15,32 +15,26 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * @author Abdur Rahim Nishad
+ * @since 1.0.0
+ */
 @UtilityClass
 public class PageUtil {
 	
-	public  <T, R> PagedResponse<R> paginate(Page<T> data, Function<T, R> mapper) {
-		List<R> content = data.stream()
-		                      .map(mapper)
-		                      .collect(Collectors.toList());
-		
-		return PagedResponse.<R>builder()
-		                    .content(content)
+	public <T> PagedResponse<T> paginate(Page<T> data) {
+
+		return PagedResponse.<T>builder()
+		                    .content(data.getContent())
 		                    .page(data.getNumber() + 1)
 		                    .size(data.getSize())
 		                    .totalPages(data.getTotalPages())
 		                    .totalItems(data.getTotalElements())
 		                    .build();
 	}
-	
-	/**
-	 * Create a sort object from the query string
-	 *
-	 * @param sortsQuery the query string
-	 *
-	 * @return the sort object
-	 */
-	public  Sort getSort(String[] sortsQuery) {
-		// MOVIE validate the sort query based on the entity fields
+
+	public Sort getSort(String[] sortsQuery) {
+
 		if (sortsQuery == null || sortsQuery.length == 0) {
 			return Sort.unsorted();
 		}

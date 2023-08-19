@@ -1,7 +1,7 @@
 package com.netflix.movieapp.service;
 
 
-import com.netflix.movieapp.constant.ResponseMessages;
+import com.netflix.movieapp.common.enums.ResponseMessages;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;

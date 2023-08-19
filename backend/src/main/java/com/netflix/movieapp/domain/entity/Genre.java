@@ -15,7 +15,6 @@ import java.util.Set;
  * @author Abdur Rahim Nishad
  * @since 1.0.0
  */
-
 @Entity
 @Table (name = "genre", schema = "public")
 @NoArgsConstructor

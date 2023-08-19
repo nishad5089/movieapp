@@ -7,6 +7,10 @@ import org.springframework.web.client.RestClientException;
 
 import java.util.Map;
 
+/**
+ * @author Abdur Rahim Nishad
+ * @since 1.0.0
+ */
 @Getter
 public class RESTException extends RestClientException {
 	

@@ -5,7 +5,7 @@ import com.netflix.movieapp.common.domain.response.PagedResponse;
 import com.netflix.movieapp.common.utils.ResponseUtil;
 import com.netflix.movieapp.domain.request.movie.MovieCreateRequest;
 import com.netflix.movieapp.domain.request.movie.MovieFetchRequest;
-import com.netflix.movieapp.domain.request.movie.UpdateMovieRequest;
+import com.netflix.movieapp.domain.request.movie.MovieUpdateRequest;
 import com.netflix.movieapp.domain.response.MovieResponse;
 import com.netflix.movieapp.service.MovieService;
 import jakarta.validation.Valid;
@@ -14,14 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static com.netflix.movieapp.constant.ResponseMessages.*;
+import static com.netflix.movieapp.common.enums.ResponseMessages.*;
 
 /**
  * @author Abdur Rahim Nishad
  * @since 1.0.0
  */
 @RestController
-@RequestMapping("/movie")
+@RequestMapping("/api/movie")
 @RequiredArgsConstructor
 public class MovieController extends BaseController {
 
@@ -50,9 +50,9 @@ public class MovieController extends BaseController {
     }
 
     @PutMapping ("/update")
-    public ResponseEntity<ApiResponse<MovieResponse>> update(@Valid @RequestBody UpdateMovieRequest updateMovieRequest) {
+    public ResponseEntity<ApiResponse<MovieResponse>> update(@Valid @RequestBody MovieUpdateRequest movieUpdateRequest) {
 
-        return ResponseUtil.createResponse(HttpStatus.OK, getMessage(MOVIE_UPDATED_SUCCESSFULLY), movieService.update(updateMovieRequest));
+        return ResponseUtil.createResponse(HttpStatus.OK, getMessage(MOVIE_UPDATED_SUCCESSFULLY), movieService.update(movieUpdateRequest));
     }
 
 }

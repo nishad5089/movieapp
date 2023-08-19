@@ -1,10 +1,7 @@
 package com.netflix.movieapp.domain.request.movie;
 
 import com.netflix.movieapp.common.domain.request.PaginationRequest;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * @author Abdur Rahim Nishad
@@ -12,6 +9,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class MovieFetchRequest {

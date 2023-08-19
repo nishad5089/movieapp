@@ -22,7 +22,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UpdateMovieRequest {
+public class MovieUpdateRequest {
 
     @NotNull
     @Positive
@@ -36,6 +36,7 @@ public class UpdateMovieRequest {
     @NotBlank(message = "{validation.constraints.movie.description.empty}")
     private String description;
 
+    @Positive
     @NotNull(message = "{validation.constraints.movie.releaseYear.NotNull}")
     private Integer releaseYear;
 
