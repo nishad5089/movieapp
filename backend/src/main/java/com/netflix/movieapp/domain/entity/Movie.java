@@ -1,14 +1,14 @@
 package com.netflix.movieapp.domain.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,30 +17,33 @@ import java.util.Set;
  */
 @Entity
 @Table (name = "movie", schema = "public")
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 public class Movie extends BaseEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String title;
 
     @Column
+    @NotBlank
     private String description;
 
+    @NotNull
     @Column
-    private String releaseYear;
+    private Integer releaseYear;
 
+    @NotNull
     @ManyToMany
     @JoinTable(
             name = "movie_genre",
             joinColumns = @JoinColumn(name = "movie_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
-    private List<Genre> genres;
+    private Set<Genre> genres;
 }

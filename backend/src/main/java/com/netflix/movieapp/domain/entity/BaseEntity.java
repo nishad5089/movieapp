@@ -23,8 +23,8 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@MappedSuperclass
 @SuperBuilder
+@MappedSuperclass
 public abstract class BaseEntity implements Serializable {
 
     @CreationTimestamp

@@ -2,12 +2,15 @@ package com.netflix.movieapp.mapper;
 
 import com.netflix.movieapp.domain.entity.Genre;
 import com.netflix.movieapp.domain.entity.Movie;
-import com.netflix.movieapp.domain.request.MovieCreateRequest;
+import com.netflix.movieapp.domain.request.movie.MovieCreateRequest;
+import com.netflix.movieapp.domain.request.movie.UpdateMovieRequest;
 import com.netflix.movieapp.domain.response.MovieResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Mappings;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -17,14 +20,10 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
 
-    @Mapping(target = "genres", expression = "java(this.mapStringListToGenreList(request.getGenres()))")
+    @Mappings({
+         @Mapping(target = "genres", ignore = true)
+    })
     Movie toEntity(MovieCreateRequest request);
-
-    default List<Genre> mapStringListToGenreList(List<String> genres) {
-        return genres.stream()
-                .map(this::createGenreFromName)
-                .collect(Collectors.toList());
-    }
 
     default Genre createGenreFromName(String genreName) {
        return Genre.builder().name(genreName).build();
@@ -33,9 +32,12 @@ public interface MovieMapper {
     @Mapping(target = "genres", expression = "java(mapGenresToGenreNames(entity.getGenres()))")
     MovieResponse toResponse(Movie entity);
 
-    default List<String> mapGenresToGenreNames(List<Genre> genres) {
+    default Set<String> mapGenresToGenreNames(Set<Genre> genres) {
         return genres.stream()
                 .map(Genre::getName)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
+
+    void updateEntity(UpdateMovieRequest request, @MappingTarget Movie entity);
+
 }

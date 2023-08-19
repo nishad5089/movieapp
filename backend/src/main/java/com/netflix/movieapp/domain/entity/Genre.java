@@ -1,5 +1,6 @@
 package com.netflix.movieapp.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,19 +18,20 @@ import java.util.Set;
 
 @Entity
 @Table (name = "genre", schema = "public")
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@SuperBuilder
 public class Genre {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Movie> movies;
 }

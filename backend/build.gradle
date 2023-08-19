@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.2'
     id 'io.spring.dependency-management' version '1.1.2'
+    id 'jacoco'
 }
 
 group = 'com.netflix'
@@ -27,24 +28,32 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.postgresql:postgresql'
-//    annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    implementation 'org.mapstruct:mapstruct:1.5.5.Final'
-//    annotationProcessor "org.mapstruct:mapstruct-processor"
-//    annotationProcessor "org.projectlombok:lombok-mapstruct-binding"
-//    testAnnotationProcessor "org.projectlombok:lombok"
-
-
-    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.3.Final'
-    implementation group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.3.Final'
-    compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
-    annotationProcessor group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
-    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.3.Final'
-
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.1.2'
+    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
+    implementation 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor('org.hibernate:hibernate-jpamodelgen:6.1.5.Final')
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.0.2'
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    finalizedBy jacocoTestCoverageVerification
+}
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            enabled = true
+            limit {
+                minimum = 0.07
+            }
+        }
+    }
 }
 
 

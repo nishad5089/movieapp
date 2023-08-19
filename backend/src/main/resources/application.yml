@@ -2,7 +2,8 @@ server:
   port: 8080
   servlet:
     context-path: /api
-
+  error:
+    include-message: always
 spring:
   application:
     name: movieapp
@@ -20,3 +21,6 @@ spring:
 springdoc:
   api-docs:
     path: /docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
