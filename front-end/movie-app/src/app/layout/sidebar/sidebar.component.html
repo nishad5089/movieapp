@@ -1,0 +1,17 @@
+<ul nz-menu nzTheme="dark" nzMode="inline" [class]="isCollapsed? 'ant-menu-inline-collapsed': ''"  [nzInlineCollapsed]="isCollapsed">
+  <li nz-submenu nzTitle="Movie" nzIcon="mac-command" >
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/movie/list']"><span>List</span></a>
+        </li>
+      </ul>
+    </li>
+    <li nz-submenu nzTitle="Genre" nzIcon="book">
+      <ul>
+        <li nz-menu-item routerLinkActive="ant-menu-item-selected">
+          <a [routerLink]="['/genre/list']"><span>List</span></a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+

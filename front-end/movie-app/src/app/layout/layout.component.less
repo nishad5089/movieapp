@@ -1,0 +1,62 @@
+.logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.layout {
+  min-height: 100vh;
+}
+
+nz-sider {
+  height: 100%;
+  overflow: auto;
+  position: fixed;
+  left: 0;
+}
+
+
+nz-content {
+  margin: 0 16px;
+  overflow: initial;
+}
+
+nz-breadcrumb {
+  margin: 16px 0;
+}
+
+.inner-content {
+  margin: 24px 0;
+  background: #ffffff;
+}
+
+nz-footer {
+  text-align: center;
+}
+.right-layout-full {
+  margin-left: 200px;
+}
+.right-layout-min {
+  margin-left: 80px;
+}
+nz-sider {
+  position: relative;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin; /* For Firefox */
+  scrollbar-color: #ccc transparent; /* For Firefox */
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc; /* Color of the scrollbar thumb */
+    border-radius: 3px; /* Rounded corners of the thumb */
+  }
+  &::-webkit-scrollbar-track {
+    background-color: transparent; /* Color of the track behind the thumb */
+  }
+}
+.aside {
+  position: absolute;
+}

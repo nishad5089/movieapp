@@ -1,0 +1,61 @@
+<nz-card [nzBordered]="false" nzTitle="Profile Detail">
+<form nz-form [formGroup]="form" (ngSubmit)="submit()">
+  <nz-form-item>
+    <nz-alert *ngIf="failed" nzType="error" nzMessage="Failed to add TODO!" [nzShowIcon]="true"></nz-alert>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="24" nzSm="7" nzFor="title" nzRequired>Title</nz-form-label>
+    <nz-form-control nzHasFeedback [nzErrorTip]="combineTpl" nzXs="24" nzSm="12" nzMd="10">
+      <input type="text" nz-input formControlName="title" placeholder="Title" />
+      <ng-template #combineTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">Title is Required</ng-container>
+        <ng-container *ngIf="control.hasError('maxlength')">Title Max Length is 100</ng-container>
+        <ng-container *ngIf="control.hasError('minlength')">Title Min Length is 5</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="5" nzXs="24" nzSm="7" nzRequired>Release Year</nz-form-label>
+    <nz-form-control nzXs="24" nzSm="12" nzMd="10" [nzSpan]="12" nzHasFeedback [nzErrorTip]="releaseYearMsg" >
+      <nz-select name="select-error" formControlName="releaseYear" nzPlaceHolder="Please Slect Year">
+        <ng-container *ngFor="let year of generateYearList()">
+          <nz-option [nzValue]="year" [nzLabel]="year"></nz-option>
+        </ng-container>
+        <ng-template #releaseYearMsg let-control>
+          <ng-container *ngIf="control.hasError('required')">Release Year is Required</ng-container>
+        </ng-template>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="24" nzSm="7" nzFor="genre">Select Genre</nz-form-label>
+    <nz-form-control nzXs="24" nzSm="12" nzMd="10" [nzSpan]="12" nzHasFeedback>
+      <nz-select [nzSize]="size" nzMode="tags" nzPlaceHolder="Please select" nzXs="24" nzSm="12" nzMd="10" formControlName="genres">
+        <nz-option *ngFor="let option of genres" [nzLabel]="option.name" [nzValue]="option.name"></nz-option>
+      </nz-select>
+    </nz-form-control>
+
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzXs="24" nzSm="7" nzFor="description" nzRequired>Description</nz-form-label>
+    <nz-form-control nzXs="24" nzSm="12" nzMd="10" [nzErrorTip]="dscErrorMsg">
+      <textarea rows="4" nz-input formControlName="description"></textarea>
+      <ng-template #dscErrorMsg let-control>
+        <ng-container *ngIf="control.hasError('maxlength')">Description Max Length is 300</ng-container>
+        <ng-container *ngIf="control.hasError('minlength')">Description Max Length is 5</ng-container>
+        <ng-container *ngIf="control.hasError('required')">Description is required</ng-container>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 10, offset: 7 }">
+      <button nz-button nzType="primary" type="submit" [nzLoading]="submitting" style="float: right;">Add</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+</nz-card>

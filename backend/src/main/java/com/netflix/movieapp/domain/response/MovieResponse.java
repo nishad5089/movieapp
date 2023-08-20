@@ -24,7 +24,6 @@ public class MovieResponse {
 
     private String description;
 
-    @JsonProperty("release_year")
     private Integer releaseYear;
 
     private Set<String> genres;

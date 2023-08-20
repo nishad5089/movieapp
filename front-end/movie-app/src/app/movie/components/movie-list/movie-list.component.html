@@ -1,0 +1,45 @@
+
+<div class="custom-card-header">
+  <h3 class="card-title">Movie List</h3>
+  <a [routerLink]="['/movie/add']" nz-button nzType="primary" class="add-button">
+    Add new Movie<i nz-icon nzType="plus"></i>
+  </a>
+</div>
+
+<nz-card [nzBordered]="false" class="center-card">
+
+<nz-table (nzQueryParams)="sort($event)" #movieTable [nzData]="data.data.content" [nzFrontPagination]="false"
+[nzShowSizeChanger]="true" [nzLoading]="loading" [nzTotal]="data.data.totalItems"
+[(nzPageIndex)]="criteria.pagination.page" (nzPageIndexChange)="load()" [(nzPageSize)]="criteria.pagination.size"
+(nzPageSizeChange)="load()" [nzSize]="'middle'">
+  <thead>
+    <tr>
+      <th nzWidth="60px"></th>
+      <th>Title</th>
+      <th>Release Year</th>
+      <th>Genre</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let data of movieTable.data">
+      <tr>
+        <td [nzExpand]="expandSet.has(data.id)" (nzExpandChange)="onExpandChange(data.id, $event)"></td>
+        <td>{{ data.title }}</td>
+        <td>{{ data.releaseYear }}</td>
+        <td>
+          <ng-container *ngFor="let genre of data.genres">
+            <nz-tag [nzColor]="'geekblue'">{{ genre }}</nz-tag>
+          </ng-container>
+        </td>
+        <td >
+          <a [routerLink]="['/movie/details', data.id]"><i nz-icon nzType="eye"></i></a>
+        </td>
+      </tr>
+      <tr [nzExpand]="expandSet.has(data.id)">
+        <span>{{ data.description }}</span>
+      </tr>
+    </ng-container>
+  </tbody>
+</nz-table>
+</nz-card>

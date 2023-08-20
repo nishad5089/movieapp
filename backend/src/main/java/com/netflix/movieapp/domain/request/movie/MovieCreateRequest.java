@@ -22,10 +22,10 @@ import java.util.Set;
 public class MovieCreateRequest implements Serializable {
 
     @NotBlank(message = "{validation.constraints.movie.title.empty}")
-    @Size(min = 4, max = 50, message = "{validation.constraints.movie.title.size}")
+    @Size(min = 5, max = 100, message = "{validation.constraints.movie.title.size}")
     private String title;
 
-    @Size(min = 4, max = 300, message = "{validation.constraints.movie.title.size}")
+    @Size(min = 5, max = 300, message = "{validation.constraints.movie.description.size}")
     @NotBlank(message = "{validation.constraints.movie.description.empty}")
     private String description;
 
