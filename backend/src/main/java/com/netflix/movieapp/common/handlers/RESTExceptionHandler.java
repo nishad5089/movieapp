@@ -28,8 +28,8 @@ import java.util.Map;
 public class RESTExceptionHandler extends ResponseEntityExceptionHandler {
 	
 	@ExceptionHandler (Exception.class)
-	public ResponseEntity<ApiResponse<String>> handleAllExceptions(Exception ignored) {
-		return ResponseUtil.createResponse(HttpStatus.INTERNAL_SERVER_ERROR, ignored.getMessage(), null);
+	public ResponseEntity<ApiResponse<String>> handleAllExceptions(Exception ex) {
+		return ResponseUtil.createResponse(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), null);
 	}
 	
 	@ExceptionHandler (RESTException.class)

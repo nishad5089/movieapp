@@ -4,7 +4,7 @@ services:
   movie-db:
     image: postgres:15
     environment:
-      POSTGRES_DB: movieapp
+      POSTGRES_DB: movieapp-db
       POSTGRES_USER: dev@movieapp
       POSTGRES_PASSWORD: password@movieapp
     volumes:

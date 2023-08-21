@@ -6,7 +6,7 @@ spring:
   application:
     name: movieapp
   datasource:
-    url: jdbc:postgresql://localhost:5433/movieapp
+    url: jdbc:postgresql://localhost:5433/movieapp-db
     username: dev@movieapp
     password: password@movieapp
   jpa:
