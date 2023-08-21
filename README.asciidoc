@@ -12,6 +12,7 @@
 - Swagger (Open API)
 - Liquibase
 - Jacoco
+- Angular 16
 
 == Running the Application
 
