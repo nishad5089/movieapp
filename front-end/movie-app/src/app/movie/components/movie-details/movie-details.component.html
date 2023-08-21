@@ -2,25 +2,25 @@
 
     <div class="details">
       <nz-form-item>
-        <nz-form-label nzSpan="4">Movie Title</nz-form-label>
+        <nz-form-label nzSpan="2">Movie Title</nz-form-label>
         <nz-form-control nzSpan="20">
           <span>{{ movie.title }}</span>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzSpan="4">Release Year</nz-form-label>
+        <nz-form-label nzSpan="2">Release Year</nz-form-label>
         <nz-form-control nzSpan="20">
           <span>{{ movie.releaseYear }}</span>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzSpan="4">Description</nz-form-label>
+        <nz-form-label nzSpan="2">Description</nz-form-label>
         <nz-form-control nzSpan="20">
           <span>{{ movie.description }}</span>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-label nzSpan="4">Description</nz-form-label>
+        <nz-form-label nzSpan="2">Description</nz-form-label>
         <nz-form-control nzSpan="20">
           <ng-container *ngFor="let genre of movie.genres">
             <nz-tag [nzColor]="'geekblue'">{{ genre }}</nz-tag>
@@ -29,7 +29,7 @@
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-control nzSpan="24">
+        <nz-form-control  [nzXs]="{ span: 4, offset: 0 }" [nzSm]="{ span: 0, offset: 1 }">
           <a [routerLink]="['/movie/list']" nz-button nzType="primary">Back To List</a>
         </nz-form-control>
       </nz-form-item>

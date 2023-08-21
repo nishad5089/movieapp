@@ -1,6 +1,5 @@
 package com.netflix.movieapp.service;
 
-import com.netflix.movieapp.domain.entity.Genre;
 import com.netflix.movieapp.domain.response.GenreResponse;
 import com.netflix.movieapp.mapper.GenreMapper;
 import com.netflix.movieapp.repository.GenreRepository;

@@ -13,9 +13,10 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        hbm2ddl.auto: update
     show-sql: true
-
+  liquibase:
+    change-log: db/migrations/changelog-master.xml
+    enabled: true
 springdoc:
   api-docs:
     path: /docs

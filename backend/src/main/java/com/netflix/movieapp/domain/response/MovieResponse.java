@@ -1,10 +1,7 @@
 package com.netflix.movieapp.domain.response;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 
-import java.util.List;
 import java.util.Set;
 
 /**

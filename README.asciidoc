@@ -1,0 +1,71 @@
+= Application Setup Guide
+
+== Technology Used
+- Java 17
+- Gradle
+- Spring Boot (v3.1.2)
+- Spring Data JPA
+- Spring Validation
+- PostgreSQL
+- Mapstruct
+- Lombok
+- Swagger (Open API)
+- Liquibase
+- Jacoco
+
+== Running the Application
+
+=== Running the Backend
+
+Before you start, ensure that the database is up and running by executing the following Docker command:
+
+[source,sh]
+----
+docker-compose up -d
+----
+
+Open your preferred IDE and navigate to the `backend` folder within the root directory of the project.
+
+If you're using IntelliJ:
+1. Open the project in IntelliJ.
+2. Build and run the project using the IDE's run option.
+
+Alternatively, you can run the backend using Gradle:
+1. Open a terminal in the root directory.
+2. Run the following command:
+[source,sh]
+----
+./gradlew spring-boot:run
+----
+
+=== Running the Frontend
+
+Navigate to the root of the project and go to the `\front-end\movie-app` directory.
+
+Install the required dependencies by running the following command:
+
+[source,sh]
+----
+npm i
+----
+
+Start the frontend by running:
+
+[source,sh]
+----
+npm start
+----
+
+== Accessing the Application
+
+You can access the frontend at: http://localhost:4200
+
+The backend is available at: http://localhost:8080
+
+== API Documentation
+
+Access the API documentation (Swagger UI) at: http://localhost:8080/swagger-ui/index.html
+
+== Test Case Coverage Report
+
+You can view the Test Case Coverage Report at: `./build/reports/tests/index.html` within the project directory.

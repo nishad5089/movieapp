@@ -1,1 +1,20 @@
-<p>genre-list works!</p>
+
+<nz-card [nzBordered]="false" class="center-card" nzTitle="Genre List">
+
+<nz-table #genreTable [nzData]="genres" [nzLoading]="loading" [nzSize]="'middle'" [nzShowPagination]="false">
+  <thead>
+    <tr>
+      <th>#SL</th>
+      <th>Title</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let genre of genreTable.data;let i = index">
+      <tr>
+        <td>{{i+1}}</td>
+        <td>{{ genre.name }}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</nz-table>
+</nz-card>

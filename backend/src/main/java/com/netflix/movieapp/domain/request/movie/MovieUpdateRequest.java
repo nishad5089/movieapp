@@ -32,7 +32,7 @@ public class MovieUpdateRequest {
     @Size(min = 4, max = 50, message = "{validation.constraints.movie.title.size}")
     private String title;
 
-    @Size(min = 4, max = 300, message = "{validation.constraints.movie.title.size}")
+    @Size(min = 4, max = 300, message = "{validation.constraints.movie.description.size}")
     @NotBlank(message = "{validation.constraints.movie.description.empty}")
     private String description;
 
