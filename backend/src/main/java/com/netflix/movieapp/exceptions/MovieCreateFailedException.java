@@ -6,8 +6,8 @@ import com.netflix.movieapp.common.exceptions.RESTException;
  * @author Abdur Rahim Nishad
  * @since 1.0.0
  */
-public class GenreNotFoundException extends RESTException {
-    public GenreNotFoundException(String message) {
+public class MovieCreateFailedException extends RESTException {
+    public MovieCreateFailedException(String message) {
         super(message);
     }
 }

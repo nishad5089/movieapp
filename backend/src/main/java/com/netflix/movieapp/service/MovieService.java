@@ -1,6 +1,8 @@
 package com.netflix.movieapp.service;
 
 import com.netflix.movieapp.common.domain.response.PagedResponse;
+import com.netflix.movieapp.common.exceptions.AlreadyExistException;
+import com.netflix.movieapp.common.exceptions.RecordNotFoundException;
 import com.netflix.movieapp.common.utils.PageUtil;
 import com.netflix.movieapp.domain.entity.Genre;
 import com.netflix.movieapp.domain.entity.Movie;
@@ -8,8 +10,7 @@ import com.netflix.movieapp.domain.request.movie.MovieCreateRequest;
 import com.netflix.movieapp.domain.request.movie.MovieFetchRequest;
 import com.netflix.movieapp.domain.request.movie.MovieUpdateRequest;
 import com.netflix.movieapp.domain.response.MovieResponse;
-import com.netflix.movieapp.exceptions.GenreNotFoundException;
-import com.netflix.movieapp.exceptions.MovieNotFoundException;
+import com.netflix.movieapp.exceptions.MovieCreateFailedException;
 import com.netflix.movieapp.exceptions.MovieUpdateFailedException;
 import com.netflix.movieapp.mapper.MovieMapper;
 import com.netflix.movieapp.repository.GenreRepository;
@@ -42,18 +43,23 @@ public class MovieService extends BaseService {
 
         repository.findByTitleIgnoreCase(movieCreateRequest.getTitle().trim())
                 .ifPresent(existingMovie -> {
-                    throw new MovieNotFoundException(getMessage(MOVIE_ALREADY_EXIST));
+                    throw new AlreadyExistException(getMessage(MOVIE_ALREADY_EXIST));
                 });
 
         if (checkGenresNotExist(movieCreateRequest.getGenres())) {
-            throw new GenreNotFoundException(getMessage(GENRE_NOT_FOUND));
+            throw new RecordNotFoundException(getMessage(GENRE_NOT_FOUND));
+        }
+        try {
+            Movie movie = mapper.toEntity(movieCreateRequest);
+            Set<Genre> genres = genreRepository.findAllByNameIn(movieCreateRequest.getGenres());
+            movie.setGenres(genres);
+            Movie savedMovie = repository.save(movie);
+            return mapper.toResponse(savedMovie);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            throw new MovieCreateFailedException(getMessage(MOVIE_CREATE_FAILED));
         }
 
-        Movie movie = mapper.toEntity(movieCreateRequest);
-        Set<Genre> genres = genreRepository.findAllByNameIn(movieCreateRequest.getGenres());
-        movie.setGenres(genres);
-        Movie savedMovie = repository.save(movie);
-        return mapper.toResponse(savedMovie);
     }
 
     public PagedResponse<MovieResponse> getAll(MovieFetchRequest fetchRequest) {
@@ -75,17 +81,17 @@ public class MovieService extends BaseService {
     public MovieResponse getDetails(Long id) {
         return repository.findById(id)
                 .map(mapper::toResponse)
-                .orElseThrow(() -> new MovieNotFoundException(getMessage(MOVIE_NOT_FOUND)));
+                .orElseThrow(() -> new RecordNotFoundException(getMessage(MOVIE_NOT_FOUND)));
     }
 
 
     @Transactional
     public MovieResponse update(MovieUpdateRequest movieUpdateRequest) {
         Movie movie = repository.findById(movieUpdateRequest.getId())
-                .orElseThrow(() -> new MovieNotFoundException(getMessage(MOVIE_NOT_FOUND)));
+                .orElseThrow(() -> new RecordNotFoundException(getMessage(MOVIE_NOT_FOUND)));
 
         if (checkGenresNotExist(movieUpdateRequest.getGenres())) {
-            throw new GenreNotFoundException(getMessage(GENRE_NOT_FOUND));
+            throw new RecordNotFoundException(getMessage(GENRE_NOT_FOUND));
         }
 
         try {
@@ -97,6 +103,7 @@ public class MovieService extends BaseService {
             Movie updatedMovie = repository.save(movie);
             return mapper.toResponse(updatedMovie);
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new MovieUpdateFailedException(getMessage(MOVIE_UPDATE_FAILED));
         }
     }
@@ -112,7 +119,7 @@ public class MovieService extends BaseService {
 
             if (!containsGenre) {
                 Genre newGenre = genreRepository.findByName(newGenreName)
-                        .orElseThrow(() -> new GenreNotFoundException(getMessage(GENRE_NOT_FOUND)));
+                        .orElseThrow(() -> new RecordNotFoundException(getMessage(GENRE_NOT_FOUND)));
                 updatedGenres.add(newGenre);
             }
         }
